@@ -1,9 +1,10 @@
 package mpei.ru.back.logic;
 
 import java.io.*;
+import java.util.ArrayList;
 
 /**
- * @author degtj on 17.08.2022
+ * @author Degtiarev Dmitry on 17.08.2022
  * @project Comtrade_reader
  */
 
@@ -17,14 +18,14 @@ public class ComtradeReader {
     private float[] k2 = new float[18];
 
     private String[] valName = new String[18];
-    private int[] time;
+    private ArrayList<Integer> time = new ArrayList<>();
     private String[] unitOfMeasurement = new String[18];
 
     public String[] getUnitOfMeasurement() {
         return unitOfMeasurement;
     }
 
-    public int[] getTime() {
+    public ArrayList<Integer> getTime() {
         return time;
     }
 
@@ -33,20 +34,18 @@ public class ComtradeReader {
     }
 
     public ComtradeReader(String path, String name) {
-        if (path == null || name == null) {
+        if (path == null || path.isEmpty() || name == null || name.isEmpty()) {
             path = "src/main/resources/comtrade/";
-            name = "*";
+            name = "Number start = 690 Test = 4.1.2.1.1 Time = 07_19_2022 13_50_13.811 RTDS";
         }
         dataCfg = new File(path + name + ".cfg");
         dataDat = new File(path + name + ".dat");
     }
 
-    public float[][] read() {
+    public ArrayList<ArrayList<Float>> read() {
         BufferedReader bufReadCfg = null;
         BufferedReader bufReadDat = null;
         try {
-
-
             bufReadCfg = new BufferedReader(new FileReader(dataCfg));
             bufReadDat = new BufferedReader(new FileReader(dataDat));
         } catch (FileNotFoundException e) {
@@ -69,23 +68,23 @@ public class ComtradeReader {
             e.printStackTrace();
         }
 
-        float[][] value = new float[18][];
+        ArrayList<ArrayList<Float>> value = new ArrayList<>();
+        for (int i = 0; i < k1.length; i++) {
+            value.add(new ArrayList<>());
+        }
 
-        int j = 0;
         try {
             while ((line = bufReadDat.readLine()) != null) {
                 parse = line.split(",");
                 int i = 0;
                 for (String el : parse) {
                     if (i >= 2 && i <= 19) {
-                        value[i - 2][j] = Float.parseFloat(el) * k1[j] + k2[j];
+                        value.get(i - 2).add(Float.parseFloat(el) * k1[i - 2] + k2[i - 2]);
                     } else if (i == 1) {
-                        time[j] = Integer.parseInt(el);
+                        time.add(Integer.parseInt(el));
                     }
                     i++;
                 }
-                j++;
-
             }
         } catch (IOException e) {
             e.printStackTrace();

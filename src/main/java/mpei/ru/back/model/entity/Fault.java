@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author degtj on 17.08.2022
+ * @author Degtiarev Dmitry on 17.08.2022
  * @project Comtrade_reader
  */
 
@@ -17,8 +17,8 @@ import javax.persistence.Table;
 @Table(name = "fault")
 public class Fault {
     @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @Column(name = "value_name", nullable = false)
+    private String ValueName;
 
     @Column(name = "time")
     private int time;
@@ -26,8 +26,8 @@ public class Fault {
     @Column(name = "time_unit_of_measurement")
     private String timeUnitOfMeasurement = "ms";
 
-    @Column(name = "value")
-    private int value;
+    @Column(name = "fallback_value")
+    private float fallbackValue;
 
     @Column(name = "value_unit_of_measurement")
     private String valueUnitOfMeasurement;
