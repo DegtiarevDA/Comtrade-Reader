@@ -18,13 +18,13 @@ import javax.persistence.Table;
 public class Fault {
     @Id
     @Column(name = "value_name", nullable = false)
-    private String ValueName;
+    private String valueName;
 
     @Column(name = "time")
-    private int time;
+    private float time;
 
     @Column(name = "time_unit_of_measurement")
-    private String timeUnitOfMeasurement = "ms";
+    private String timeUnitOfMeasurement;
 
     @Column(name = "fallback_value")
     private float fallbackValue;
@@ -32,4 +32,14 @@ public class Fault {
     @Column(name = "value_unit_of_measurement")
     private String valueUnitOfMeasurement;
 
+    public Fault(String valueName, float time, String timeUnitOfMeasurement, float fallbackValue, String valueUnitOfMeasurement) {
+        this.valueName = valueName;
+        this.time = time;
+        this.timeUnitOfMeasurement = timeUnitOfMeasurement;
+        this.fallbackValue = fallbackValue;
+        this.valueUnitOfMeasurement = valueUnitOfMeasurement;
+    }
+
+    public Fault() {
+    }
 }

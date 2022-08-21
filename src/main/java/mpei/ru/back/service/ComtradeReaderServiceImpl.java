@@ -3,13 +3,16 @@ package mpei.ru.back.service;
 import mpei.ru.back.logic.ComtradeReader;
 import mpei.ru.back.logic.Furie;
 import mpei.ru.back.logic.Trigger;
+import mpei.ru.back.model.dto.FaultDTO;
 import mpei.ru.back.model.entity.Fault;
 import mpei.ru.back.repository.FaultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author Degtiarev Dmitry on 17.08.2022
@@ -50,13 +53,11 @@ public class ComtradeReaderServiceImpl implements ComtradeReaderService {
     }
 
     @Override
+    @Transactional
     public void save() {
         for (int i = 0; i < triggeredValueName.size(); i++) {
-            Fault fault = new Fault();
-            fault.setValueName(triggeredValueName.get(i));
-            fault.setTime(timeOfTrigger.get(i));
-            fault.setFallbackValue(fallbackValue.get(i));
-            fault.setValueUnitOfMeasurement(triggeredUnitOfMeasurement.get(i));
+            Fault fault = new Fault(triggeredValueName.get(i), timeOfTrigger.get(i) / 1000,
+                    "ms", fallbackValue.get(i), triggeredUnitOfMeasurement.get(i));
             try {
                 faultRepository.save(fault);
             } catch (Exception e) {
@@ -73,5 +74,16 @@ public class ComtradeReaderServiceImpl implements ComtradeReaderService {
         fallbackValue = trigger.getFallbackValue();
         triggeredValueName = trigger.getTriggeredValueName();
         triggeredUnitOfMeasurement = trigger.getTriggeredUnitOfMeasurement();
+    }
+
+    @Override
+    public List<FaultDTO> getFault() {
+        List<FaultDTO> faultDTOList = new ArrayList<>();
+        List<Fault> faults = faultRepository.findAll();
+        for (Fault fault : faults) {
+            FaultDTO faultDTO = new FaultDTO(fault);
+            faultDTOList.add(faultDTO);
+        }
+        return faultDTOList;
     }
 }
