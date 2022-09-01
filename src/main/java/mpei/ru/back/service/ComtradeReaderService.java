@@ -1,5 +1,6 @@
 package mpei.ru.back.service;
 
+import mpei.ru.back.model.dto.DataDTO;
 import mpei.ru.back.model.dto.FaultDTO;
 
 import java.util.List;
@@ -15,5 +16,6 @@ public interface ComtradeReaderService {
     void save();
     void checkTrigger();
     List<FaultDTO> getFault();
+    List<DataDTO> getData();
 
 }

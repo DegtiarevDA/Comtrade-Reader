@@ -1,5 +1,7 @@
 package mpei.ru.back;
 
+import lombok.extern.slf4j.Slf4j;
+import mpei.ru.back.model.dto.DataDTO;
 import mpei.ru.back.model.dto.FaultDTO;
 import mpei.ru.back.service.ComtradeReaderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import java.util.List;
  * @project Comtrade_reader
  */
 
+@Slf4j
 @RestController
 @RequestMapping("/comtrade")
 public class ComtradeReaderController {
@@ -21,17 +24,23 @@ public class ComtradeReaderController {
     @Autowired
     private ComtradeReaderService comtradeReaderService;
 
-    @PostMapping("/readAndSave")
-    public String readAndSave(@RequestParam String path,
-                              @RequestParam String fileName) {
+    @GetMapping("/readAndSave")
+    public ResponseEntity<List<DataDTO>> readAndSave(@RequestParam String path,
+                                                      @RequestParam String fileName) {
         comtradeReaderService.read(path, fileName);
         comtradeReaderService.checkTrigger();
         comtradeReaderService.save();
-        return "Comtrade with path: " + path + "/" + fileName + " read and save.";
+        log.info("Comtrade with path: " + path + "/" + fileName + " read and save.");
+        return getData();
     }
 
     @GetMapping("/getFault")
-    public ResponseEntity<List<FaultDTO>> getFaultList(){
+    public ResponseEntity<List<FaultDTO>> getFaultList() {
         return new ResponseEntity<>(comtradeReaderService.getFault(), HttpStatus.OK);
+    }
+
+    @GetMapping("/getData")
+    public ResponseEntity<List<DataDTO>> getData() {
+        return new ResponseEntity<>(comtradeReaderService.getData(), HttpStatus.OK);
     }
 }

@@ -3,6 +3,7 @@ package mpei.ru.back.service;
 import mpei.ru.back.logic.ComtradeReader;
 import mpei.ru.back.logic.Furie;
 import mpei.ru.back.logic.Trigger;
+import mpei.ru.back.model.dto.DataDTO;
 import mpei.ru.back.model.dto.FaultDTO;
 import mpei.ru.back.model.entity.Fault;
 import mpei.ru.back.repository.FaultRepository;
@@ -86,4 +87,20 @@ public class ComtradeReaderServiceImpl implements ComtradeReaderService {
         }
         return faultDTOList;
     }
+
+    public List<DataDTO> getData() {
+        List<DataDTO> dataList = new ArrayList<>();
+        int i = 0;
+        for (String name : valueName) {
+            DataDTO data = new DataDTO();
+            data.setName(name);
+            data.setValues(value.get(i));
+            data.setType("analog");
+            data.setRMS(valueRMS.get(i));
+            dataList.add(data);
+            i++;
+        }
+        return dataList;
+    }
+
 }
