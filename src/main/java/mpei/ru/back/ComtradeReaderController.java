@@ -3,10 +3,9 @@ package mpei.ru.back;
 import mpei.ru.back.model.dto.FaultDTO;
 import mpei.ru.back.service.ComtradeReaderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,12 +15,13 @@ import java.util.List;
  */
 
 @RestController
+@RequestMapping("/comtrade")
 public class ComtradeReaderController {
 
     @Autowired
     private ComtradeReaderService comtradeReaderService;
 
-    @PostMapping("comtrade/readAndSave")
+    @PostMapping("/readAndSave")
     public String readAndSave(@RequestParam String path,
                               @RequestParam String fileName) {
         comtradeReaderService.read(path, fileName);
@@ -30,8 +30,8 @@ public class ComtradeReaderController {
         return "Comtrade with path: " + path + "/" + fileName + " read and save.";
     }
 
-    @GetMapping("comtrade/getFault")
-    public List<FaultDTO> getFaultList(){
-        return comtradeReaderService.getFault();
+    @GetMapping("/getFault")
+    public ResponseEntity<List<FaultDTO>> getFaultList(){
+        return new ResponseEntity<>(comtradeReaderService.getFault(), HttpStatus.OK);
     }
 }

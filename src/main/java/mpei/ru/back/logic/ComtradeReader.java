@@ -1,5 +1,7 @@
 package mpei.ru.back.logic;
 
+import lombok.Getter;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -21,14 +23,13 @@ public class ComtradeReader {
     private ArrayList<Integer> time = new ArrayList<>();
     private String[] unitOfMeasurement = new String[18];
 
+
     public String[] getUnitOfMeasurement() {
         return unitOfMeasurement;
     }
-
     public ArrayList<Integer> getTime() {
         return time;
     }
-
     public String[] getValName() {
         return valName;
     }

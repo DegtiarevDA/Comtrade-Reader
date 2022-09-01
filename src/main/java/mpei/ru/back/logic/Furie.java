@@ -15,7 +15,7 @@ public class Furie {
     private float sumX = 0, sumY = 0;
     private float ortX = 0, ortY = 0;
     private float tempValue = 0;
-    private float k = (float) (Math.sqrt(2) / size);
+    private static final float k = (float) (Math.sqrt(2) / size);
     private int number = 0;
 
     public Furie() {

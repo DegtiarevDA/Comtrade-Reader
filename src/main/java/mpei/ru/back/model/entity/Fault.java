@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * @author Degtiarev Dmitry on 17.08.2022
@@ -15,7 +16,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "fault")
-public class Fault {
+public class Fault implements Serializable {
     @Id
     @Column(name = "value_name", nullable = false)
     private String valueName;

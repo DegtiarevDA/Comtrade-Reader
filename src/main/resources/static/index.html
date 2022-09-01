@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fault Table</title>
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<table>
+    <tr>
+        <td>
+            <form autocomplete="off" onsubmit="onFormSubmit">
+                <div>
+                    <label for="path">Path</label>
+                    <input type="text" name="path" id="path">
+                </div>
+                <div>
+                    <label for="file">File Name</label>
+                    <input type="text" name="file" id="file">
+                </div>
+                <div class="form_action--button">
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Reset">
+                </div>
+            </form>
+        </td>
+        <td>
+            <table class="list" id="faultList">
+                <thead>
+                <tr>
+                    <th>Value name</th>
+                    <th>Time</th>
+                    <th>Unit of measurement</th>
+                    <th>Fallback value</th>
+                    <th>Unit of measurement</th>
+                </tr>
+                </thead>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<script src="js/logic.js"></script>
+</body>
+</html>

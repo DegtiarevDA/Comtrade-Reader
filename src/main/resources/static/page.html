@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page</title>
+</head>
+<body ng-app="comtradeReaderApp">
+<div class="contaner" style="margin-top: 30px" ng-controller="AppCtrl">
+    <div class="row">
+        <div class="table-header">Faults</div>
+        <div class="table table-default">
+            <div class="table">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Time</th>
+                        <th>Unit of measurement</th>
+                        <th>Fallback value</th>
+                        <th>Unit of measurement</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item of fault">
+                        <td>{{item.name}}</td>
+                        <td>{{item.time}}</td>
+                        <td>{{item.tuom}}</td>
+                        <td>{{item.fallback}}</td>
+                        <td>{{item.fuom}}t</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
