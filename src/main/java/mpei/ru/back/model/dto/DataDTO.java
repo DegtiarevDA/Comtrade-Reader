@@ -18,5 +18,4 @@ public class DataDTO {
     private boolean clicked = false;
     private List<Float> RMS;
 
-
 }

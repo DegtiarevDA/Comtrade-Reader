@@ -8,6 +8,7 @@ import mpei.ru.back.model.dto.FaultDTO;
 import mpei.ru.back.model.entity.Fault;
 import mpei.ru.back.repository.FaultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -26,6 +27,8 @@ public class ComtradeReaderServiceImpl implements ComtradeReaderService {
     @Autowired
     private FaultRepository faultRepository;
 
+    @Value("${service.set-parameter}")
+    private float setParameter;
     private ArrayList<ArrayList<Float>> value;
     private LinkedList<ArrayList<Float>> valueRMS;
     private String[] valueName;
@@ -69,7 +72,7 @@ public class ComtradeReaderServiceImpl implements ComtradeReaderService {
 
     @Override
     public void checkTrigger() {
-        Trigger trigger = new Trigger(0.6f);
+        Trigger trigger = new Trigger(setParameter);
         trigger.checkTrigger(valueRMS, time, valueName, unitOfMeasurement);
         timeOfTrigger = trigger.getTimeOfTrigger();
         fallbackValue = trigger.getFallbackValue();
@@ -83,6 +86,10 @@ public class ComtradeReaderServiceImpl implements ComtradeReaderService {
         List<Fault> faults = faultRepository.findAll();
         for (Fault fault : faults) {
             FaultDTO faultDTO = new FaultDTO(fault);
+            faultDTOList.add(faultDTO);
+            faultDTOList.add(faultDTO);
+            faultDTOList.add(faultDTO);
+            faultDTOList.add(faultDTO);
             faultDTOList.add(faultDTO);
         }
         return faultDTOList;
@@ -102,5 +109,4 @@ public class ComtradeReaderServiceImpl implements ComtradeReaderService {
         }
         return dataList;
     }
-
 }
