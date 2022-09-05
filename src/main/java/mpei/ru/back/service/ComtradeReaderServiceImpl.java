@@ -87,10 +87,6 @@ public class ComtradeReaderServiceImpl implements ComtradeReaderService {
         for (Fault fault : faults) {
             FaultDTO faultDTO = new FaultDTO(fault);
             faultDTOList.add(faultDTO);
-            faultDTOList.add(faultDTO);
-            faultDTOList.add(faultDTO);
-            faultDTOList.add(faultDTO);
-            faultDTOList.add(faultDTO);
         }
         return faultDTOList;
     }
